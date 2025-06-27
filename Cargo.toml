@@ -1,0 +1,18 @@
+[package]
+name = "rustapi"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+anyhow = { version = "1.0.98" }
+async-trait = { version = "0.1.88" }
+axum = { version = "0.8.4" }
+tokio = { version = "1.45.1", features = ["full"] }
+tower = { version = "0.5.2" }
+tower-http = { version = "0.6.6", features = ["cors", "compression-full", "decompression-full"] }
+dotenvy = { version = "0.15.7" }
+serde = { version = "1.0.219", features = ["derive"] }
+serde_json = { version = "1.0.140" }
+tracing = { version = "0.1.41" }
+tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
+thiserror = { version = "2.0.12" }
