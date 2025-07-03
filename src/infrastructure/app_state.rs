@@ -18,21 +18,21 @@ use crate::infrastructure::application_health::ApplicationHealth;
 use std::sync::Arc;
 
 #[derive(Clone)]
-pub struct Container {
+pub struct AppState {
     pub health_service: Arc<dyn HealthService>,
 }
 
-impl Container {
+impl AppState {
     pub fn new() -> Self {
         let application_health = Arc::new(ApplicationHealth::default());
         let health_service = Arc::new(HealthServiceImpl {
             health_repository: application_health.clone(),
         });
-        Container { health_service }
+        AppState { health_service }
     }
 }
 
-impl Default for Container {
+impl Default for AppState {
     fn default() -> Self {
         Self::new()
     }

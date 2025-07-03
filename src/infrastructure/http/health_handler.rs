@@ -13,20 +13,31 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-use crate::infrastructure::container::Container;
+use crate::infrastructure::app_state::AppState;
 use axum::extract::State;
 use axum::response::IntoResponse;
 use axum::Json;
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
+use utoipa::ToSchema;
 
-#[derive(Serialize, Deserialize, Debug)]
+const HEALTH_TAG: &str = "Health";
+
+#[derive(Serialize, Deserialize, Debug, ToSchema)]
 pub struct HealthResponse {
     healthy: bool,
 }
 
-pub async fn health_check(State(container): State<Arc<Container>>) -> impl IntoResponse {
-    let result = container.health_service.health_check().await;
+#[utoipa::path(
+    tag = HEALTH_TAG,
+    get,
+    path = "/health",
+    responses(
+        (status = 200, description = "Health check successful", body = HealthResponse)
+    )
+)]
+pub async fn health_check(State(app_state): State<Arc<AppState>>) -> impl IntoResponse {
+    let result = app_state.health_service.health_check().await;
     Json(HealthResponse {
         healthy: result.healthy,
     })
