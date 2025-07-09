@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 use crate::application::health::health_repository::HealthRepository;
-use crate::domain::health_model::Health;
+use crate::domain::health::Health;
 
 pub struct ApplicationHealth {}
 

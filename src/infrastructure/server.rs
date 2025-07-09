@@ -15,7 +15,6 @@
  */
 use crate::infrastructure::app_state::AppState;
 use crate::infrastructure::http::*;
-
 use crate::infrastructure::openapi::BaseOpenApi;
 use axum::http::Method;
 use std::env;
@@ -64,15 +63,14 @@ pub async fn initialize_server() {
                     Method::DELETE,
                     Method::OPTIONS,
                 ]),
-        ).layer((
-        TraceLayer::new_for_http(),
-        TimeoutLayer::new(Duration::from_secs(10)),
-    ));
+        )
+        .layer((
+            TraceLayer::new_for_http(),
+            TimeoutLayer::new(Duration::from_secs(10)),
+        ));
 
     let address = format!("{}:{}", Ipv4Addr::LOCALHOST, port);
-    let listener = TcpListener::bind(&address)
-        .await
-        .unwrap();
+    let listener = TcpListener::bind(&address).await.unwrap();
 
     tracing::info!("🚀 Server listening on {}", &address);
 

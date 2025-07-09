@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-use crate::domain::health_model::Health;
+use crate::domain::health::Health;
 
 #[async_trait::async_trait]
-pub trait HealthRepository: 'static + Send + Sync {
+pub trait HealthRepository: Send + Sync + 'static {
     async fn health_check(&self) -> Health;
 }

@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 use crate::application::health::health_repository::HealthRepository;
-use crate::domain::health_model::Health;
+use crate::domain::health::Health;
 use std::sync::Arc;
 
 #[async_trait::async_trait]
-pub trait HealthService: 'static + Send + Sync {
+pub trait HealthService: Send + Sync + 'static {
     async fn health_check(&self) -> Health;
 }
 
@@ -28,7 +28,7 @@ pub struct HealthServiceImpl {
 
 impl HealthServiceImpl {
     pub fn new(health_repository: Arc<dyn HealthRepository>) -> Self {
-        Self { health_repository }
+        HealthServiceImpl { health_repository }
     }
 }
 
