@@ -69,7 +69,7 @@ pub async fn initialize_server() {
             TimeoutLayer::new(Duration::from_secs(10)),
         ));
 
-    let address = format!("{}:{}", Ipv4Addr::LOCALHOST, port);
+    let address = format!("{}:{}", Ipv4Addr::UNSPECIFIED, port);
     let listener = TcpListener::bind(&address).await.unwrap();
 
     tracing::info!("🚀 Server listening on {}", &address);
